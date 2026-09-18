@@ -34,13 +34,13 @@ FOR SELECT
 TO anon, authenticated
 USING (true);
 
--- 5. Volunteers Table Protection (CRITICAL)
--- Deny all direct public SELECT/UPDATE/DELETE queries on volunteers via anon key.
--- Volunteers authenticate ONLY via the secure SECURITY DEFINER RPC 'login_volunteer'.
-CREATE POLICY "Protect Volunteers Table"
+-- 5. Volunteers Table (Aligned with 011)
+DROP POLICY IF EXISTS "Protect Volunteers Table" ON public.volunteers;
+DROP POLICY IF EXISTS "Allow Read Volunteers Directory" ON public.volunteers;
+CREATE POLICY "Allow Read Volunteers Directory"
 ON public.volunteers
 FOR SELECT
-TO authenticated
+TO anon, authenticated
 USING (true);
 
 -- 6. Transactions & Transaction Items Protection
