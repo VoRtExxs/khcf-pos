@@ -371,9 +371,24 @@ export default function EnterpriseAdminDashboard() {
       const catsData = await fetchCategories()
       setCategoriesList(catsData || [])
 
-      const { data, error } = await supabaseFetch("volunteers?select=id,name,national_id,role,status,created_at&order=created_at.desc")
-      if (data && !error) {
-        setVolunteers(data)
+      const localCachedVols = JSON.parse(localStorage.getItem("khcf_volunteers_cache") || "[]")
+      const { data: dbVols } = await supabaseFetch("volunteers?select=id,name,national_id,role,status,created_at&order=created_at.desc")
+      
+      const volsMap = new Map<string, any>()
+      if (Array.isArray(localCachedVols)) {
+        localCachedVols.forEach((v: any) => {
+          if (v && v.national_id) volsMap.set(v.national_id, v)
+        })
+      }
+      if (dbVols && Array.isArray(dbVols)) {
+        dbVols.forEach((v: any) => {
+          if (v && v.national_id) volsMap.set(v.national_id, v)
+        })
+      }
+      const combinedVols = Array.from(volsMap.values())
+      setVolunteers(combinedVols)
+      if (combinedVols.length > 0) {
+        localStorage.setItem("khcf_volunteers_cache", JSON.stringify(combinedVols))
       }
     } catch (err) {
       console.error("Error loading admin data:", err)
@@ -2808,35 +2823,61 @@ export default function EnterpriseAdminDashboard() {
             <form
               onSubmit={async (e) => {
                 e.preventDefault()
-                const { supabaseFetch } = await import("../../lib/supabaseClient")
+                const name = newVolForm.name.trim()
+                const national_id = newVolForm.national_id.trim()
+                const password = newVolForm.password.trim()
+                const role = newVolForm.role
+
+                if (!name || !national_id || !password) {
+                  setFeedbackToast({ type: "error", message: "يرجى تعبئة كافة الحقول المطلوبة" })
+                  return
+                }
+
+                // 1. Immediately create local volunteer and update UI
+                const newVol = {
+                  id: `vol-${Date.now()}`,
+                  name,
+                  national_id,
+                  role,
+                  status: "ACTIVE",
+                  created_at: new Date().toISOString()
+                }
+
+                const updatedVols = [newVol, ...volunteers.filter((v: any) => v.national_id !== national_id)]
+                setVolunteers(updatedVols)
+                localStorage.setItem("khcf_volunteers_cache", JSON.stringify(updatedVols))
+                logAudit("إضافة متطوع جديد", `تسجيل: ${name} (${national_id}) - الدور: ${role}`, "AUTH")
+
+                // 2. Sync to Supabase in background
                 try {
+                  const { supabaseFetch } = await import("../../lib/supabaseClient")
                   const res = await supabaseFetch("volunteers", {
                     method: "POST",
                     body: JSON.stringify({
-                      name: newVolForm.name.trim(),
-                      national_id: newVolForm.national_id.trim(),
-                      password_hash: newVolForm.password,
-                      role: newVolForm.role
+                      name,
+                      national_id,
+                      password_hash: password,
+                      role
                     })
                   })
-                  if (res?.error && newVolForm.role === "SUPERVISOR") {
+                  if (res?.error && role === "SUPERVISOR") {
                     await supabaseFetch("volunteers", {
                       method: "POST",
                       body: JSON.stringify({
-                        name: `${newVolForm.name.trim()} [مشرف]`,
-                        national_id: newVolForm.national_id.trim(),
-                        password_hash: newVolForm.password,
+                        name: `${name} [مشرف]`,
+                        national_id,
+                        password_hash: password,
                         role: "VOLUNTEER"
                       })
                     })
                   }
                 } catch (err) {
-                  console.error("Failed to add volunteer:", err)
+                  console.error("Failed to sync volunteer to Supabase:", err)
                 }
-                setFeedbackToast({ type: "success", message: `تم تسجيل ${newVolForm.name} بنجاح` })
+
+                setFeedbackToast({ type: "success", message: `تم تسجيل ${name} وإضافته للكادر بنجاح ✅` })
                 setIsAddVolunteerOpen(false)
                 setNewVolForm({ name: "", national_id: "", password: "", role: "VOLUNTEER" })
-                loadAllData()
               }}
               className="space-y-3 text-slate-700 dark:text-slate-300"
             >
