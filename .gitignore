@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Scratch and temporary parsing artifacts
+Items_List.zip
+excel_unzipped/
+generate_md.js
+generate_seed_sql.js
+image_map.json
+map_images.js
+parse_catalog.js
+parse_csv.js
+parsed_categories.json
+items.csv
+task.md
