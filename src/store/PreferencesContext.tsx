@@ -228,13 +228,11 @@ const translations: Record<Language, Record<string, string>> = {
     // Feature 3: Bazaar Analytics & Performance
     bazaarPerformance: "أداء البازار المالي",
     bazaarAnalyticsReport: "تقرير أداء البازار والتدقيق المالي",
-    bazaarAnalyticsBtn: "📊 تقرير الأداء المالي",
     volunteersBreakdown: "مساهمة كادر المتطوعين في البازار",
     topSellingInBazaar: "الأصناف الأكثر مبيعاً في هذا البازار",
     volunteerLeaderboard: "لوحة شرف المتطوعين والأعلى إنجازاً",
     officialAuditVoucher: "سند تدقيق وإغلاق مالي معتمد",
     bazaarSupervisorSignature: "مشرف البازار الميداني",
-    cashierSignature: "أمين الصندوق الميداني",
     financialAuditSignature: "المدير المالي والتدقيق",
     printVoucherBtn: "طباعة سند الإغلاق المعتمد (PDF / A4)",
     salesContribution: "المساهمة من الإجمالي",
@@ -247,16 +245,12 @@ const translations: Record<Language, Record<string, string>> = {
     liveOperationalMonitor: "المراقب التشغيلي المباشر",
     networkOnline: "متصل بالإنترنت",
     networkOffline: "بدون إنترنت (أوفلاين)",
-    activeTerminals: "أجهزة كاشير نشطة",
     unsyncedRecords: "حركات بانتظار المزامنة",
-    forceSyncBtn: "مزامنة سحابية شاملة ⚡",
     syncAllSuccess: "تمت المزامنة السحابية بنجاح",
     allSynced: "متزامن بالكامل",
 
     // Feature 5: Role-Based Permissions & Governance
-    roleSupervisor: "مشرف ميداني (Supervisor)",
     supervisorBadge: "مشرف ميداني",
-    viewOnlyCatalogNotice: "وضع العرض فقط للمشرف: تعديل الكتالوج والأسعار وحذف البازارات مقتصر على الإدارة المركزية.",
     supervisorRestrictedAction: "هذا الإجراء مقتصر على المدير العام",
 
     // Volunteer POS & Checkout Upgrades
@@ -267,7 +261,6 @@ const translations: Record<Language, Record<string, string>> = {
     donationConfirmedBadge: "تم قيد الباقي كتبرع إضافي لمرضى السرطان 🎗️",
     extraDonationItemName: "تبرع إضافي لمرضى السرطان",
     instantReceiptTitle: "تم تسجيل الفاتورة بنجاح",
-    printReceiptBtn: "طباعة الإيصال (Print)",
     newSaleBtn: "عملية بيع جديدة (↵)",
     receiptNumber: "رقم الفاتورة",
     thankYouMessage: "شكراً لمساهمتكم الكريمة في دعم علاج مرضى مركز الحسين للسرطان",
@@ -508,13 +501,11 @@ const translations: Record<Language, Record<string, string>> = {
     // Feature 3: Bazaar Analytics & Performance
     bazaarPerformance: "Bazaar Financial Performance",
     bazaarAnalyticsReport: "Bazaar Audit & Analytics Report",
-    bazaarAnalyticsBtn: "📊 Financial Performance",
     volunteersBreakdown: "Volunteer Staff Contribution",
     topSellingInBazaar: "Top-Selling Items in Bazaar",
     volunteerLeaderboard: "Volunteer Staff Honor Board & Leaderboard",
     officialAuditVoucher: "Certified Financial Audit & Closing Voucher",
     bazaarSupervisorSignature: "Field Bazaar Supervisor",
-    cashierSignature: "Field Cashier",
     financialAuditSignature: "Financial Director & Auditor",
     printVoucherBtn: "Print Certified Voucher (PDF / A4)",
     salesContribution: "% Contribution",
@@ -527,16 +518,12 @@ const translations: Record<Language, Record<string, string>> = {
     liveOperationalMonitor: "Live Operational Monitor",
     networkOnline: "Online",
     networkOffline: "Offline",
-    activeTerminals: "Active Terminals",
     unsyncedRecords: "Pending Sync",
-    forceSyncBtn: "Force Cloud Sync ⚡",
     syncAllSuccess: "Full cloud sync completed successfully",
     allSynced: "All synced",
 
     // Feature 5: Role-Based Permissions & Governance
-    roleSupervisor: "Field Supervisor",
     supervisorBadge: "Field Supervisor",
-    viewOnlyCatalogNotice: "Supervisor View-Only Mode: Editing catalog, prices, and deleting bazaars is restricted to Central Admin.",
     supervisorRestrictedAction: "This action is restricted to Super Admin",
 
     // Volunteer POS & Checkout Upgrades
@@ -547,7 +534,6 @@ const translations: Record<Language, Record<string, string>> = {
     donationConfirmedBadge: "Change added as extra cancer care donation 🎗️",
     extraDonationItemName: "Extra Cancer Care Donation",
     instantReceiptTitle: "Transaction Completed Successfully",
-    printReceiptBtn: "Print Receipt",
     newSaleBtn: "New Transaction (↵)",
     receiptNumber: "Receipt #",
     thankYouMessage: "Thank you for supporting King Hussein Cancer Center patients",

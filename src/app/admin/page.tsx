@@ -772,7 +772,7 @@ export default function EnterpriseAdminDashboard() {
     const matchedBazaar = bazaars.find((b: any) => b.name === defaultSite)
     setTxForm({
       volunteerName: user?.name || "مشرف الإدارة",
-      volunteerId: user?.national_id || "admin",
+      volunteerId: user?.national_id || user?.volunteer_id || "admin",
       siteName: defaultSite,
       bazaarId: matchedBazaar?.id || "",
       paymentMethod: "CASH",
@@ -885,7 +885,7 @@ export default function EnterpriseAdminDashboard() {
       id: `tx-adm-${Date.now()}`,
       date: txForm.date ? new Date(txForm.date).toISOString() : new Date().toISOString(),
       volunteerName: txForm.volunteerName.trim() || user?.name || "مشرف الإدارة",
-      volunteerId: txForm.volunteerId || user?.national_id || "admin",
+      volunteerId: txForm.volunteerId || user?.national_id || user?.volunteer_id || "admin",
       siteName: txForm.siteName.trim(),
       bazaarId: txForm.bazaarId || bazaars.find((b: any) => b.name === txForm.siteName.trim())?.id || "",
       paymentMethod: txForm.paymentMethod,
@@ -3567,7 +3567,7 @@ export default function EnterpriseAdminDashboard() {
                         setTxForm({
                           ...txForm,
                           volunteerName: val,
-                          volunteerId: matched?.national_id || matched?.id || user?.national_id || "volunteer"
+                          volunteerId: matched?.national_id || matched?.id || user?.national_id || user?.volunteer_id || "volunteer"
                         })
                       }}
                       className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#00284d]"
@@ -3891,7 +3891,7 @@ export default function EnterpriseAdminDashboard() {
                         setTxForm({
                           ...txForm,
                           volunteerName: val,
-                          volunteerId: matched?.national_id || matched?.id || user?.national_id || "volunteer"
+                          volunteerId: matched?.national_id || matched?.id || user?.national_id || user?.volunteer_id || "volunteer"
                         })
                       }}
                       className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-bold text-slate-800 dark:text-slate-200 outline-none focus:border-[#00284d]"

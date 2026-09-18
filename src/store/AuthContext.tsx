@@ -7,6 +7,7 @@ export type User = {
   volunteer_id: string
   name: string
   role: string
+  national_id?: string
 } | null
 
 type AuthContextType = {
